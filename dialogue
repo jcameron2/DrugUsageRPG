@@ -1,0 +1,303 @@
+import time
+
+# Functions that stores all dialogue:
+
+
+def dialogue1(name1, name2):
+    print("\n{} - Yo you all good man! let me help you get in.".format(name2))
+    time.sleep(2)
+    print("\n{} - Thanks bro!".format(name1))
+    time.sleep(1.5)
+
+
+def dialogue2(name1, name2):
+    print("\n{} - Hey man, are you alright there?".format(name1))
+    time.sleep(1.5)
+    print("""\n{} - Is it okay if I look at that stuff
+in your hand?""".format(name1))
+    time.sleep(2)
+    print("\n{} - AAAAAAAAAAAAAHHHHHHHH!!!".format(name2))
+    time.sleep(1.5)
+
+
+def dialogue3(name1, name2):
+    print("\n{} - Yo, what are you doing out here?? We're busy.".format(name2))
+    time.sleep(1.5)
+    print("\n{} - I got lost. I need help to get home.".format(name1))
+    time.sleep(1.5)
+    print("""\n{} - Hold on a minute... there's always a
+price to pay.""".format(name2))
+    time.sleep(1.5)
+    print("""\n{} - Do you have anything to give me so
+I can trust you?""".format(name2))
+    time.sleep(2)
+
+
+def dialogue4(name1, name2):
+    print("""\n{} - Ohhhh.. Sorry man, I don't have
+anything on me.""".format(name1))
+    time.sleep(1.5)
+    print("""\n{} - It's all good. If you find something,
+please give it to me ASAP!""".format(name2))
+    time.sleep(2)
+
+
+def dialogue5(name1, name2):
+    print("\n{} - WHAT THE HELL DID YOU DO TO CHRIS?".format(name2))
+    time.sleep(1.5)
+    print("\n{} - Bro.. he's just over-".format(name1))
+    time.sleep(1)
+    print("""\n{} - HE WANDERED OFF WITH YOU AND NOW HE'S GONE. THIS DOESN'T
+SEEM VERY GOOD TO ME. SHOW ME WHAT YOU'VE GOT!""".format(name2))
+    time.sleep(2.5)
+
+
+def dialogue6(name1, name2):
+    print("\n{} - C'mon man. I'm literally CHRIS' new friend.".format(name1))
+    time.sleep(1.5)
+    print("""\n{} - I'm sorry... this weed has
+really messed me up.""".format(name2))
+    time.sleep(2)
+    print("""\n{} - Yeah whatever. CHRIS wants you to
+come in the house.""".format(name1))
+    time.sleep(2)
+    print("\n{} - Aight bet. Lets go boys.".format(name2))
+    time.sleep(1.5)
+
+
+def dialogue7(name1):
+    print("\n{} - Have you got anything yet?".format(name1))
+    time.sleep(1.5)
+
+
+def dialogue8(name1, name2):
+    print("\n{} - Hey.. have you done this before?".format(name2))
+    time.sleep(1.5)
+    print("\n{} - Nah, but it's worth a try!".format(name1))
+    time.sleep(1.5)
+    print("""\n{} - Alright man, but just go at your
+own pace... I'm here.""".format(name2))
+    time.sleep(2)
+
+
+def dialogue9(name1, name2):
+    print("""\n{} - So... considering we just met, we'll have to take
+things a little lighter between you and me. Okay?""".format(name2))
+    time.sleep(2.5)
+    print("\n{} - ...Yeah, sure.".format(name1))
+    time.sleep(1.5)
+    print("""\n{} - You seem quite shy... haven't you had any experiences
+with weed and alcohol before?""".format(name2))
+    time.sleep(2)
+    print("""\n{} - Wait a minute, wheres my drink? Did that low life
+actually steal my drink again??""".format(name2))
+    time.sleep(2.5)
+    print("\n{} - Bro. I got this, I'll get your drink!".format(name1))
+    time.sleep(1.5)
+    print("""\n{} - Hmm... you're really trying to
+prove me wrong huh?""".format(name2))
+    time.sleep(1.5)
+    print("""\n{} - That guy is literally a professional athlete. If you
+don't get my boys involved especially OWEN, you're done for!
+Nevertheless, get my drink back please!""".format(name2))
+    time.sleep(3)
+    print("\n{} - Okay, I've got it man.".format(name1))
+    time.sleep(1.5)
+
+
+def dialogue10(name1, name2):
+    print("""\n{} - I might be high as hellll right now, but don't
+you ever mess with CHRIS!!""".format(name1))
+    time.sleep(2.5)
+    print("\n{} - OKAY I'M SORRY!! Just take your stupid drink!".format(name2))
+    time.sleep(1.5)
+
+
+def dialogue11(name1, name2):
+    print("\n{} - Yo!!! Whats up man!!!!".format(name2))
+    time.sleep(2)
+    print("\n{} - Hey man, can I have the house key?".format(name1))
+    time.sleep(2)
+    print("\n{} - What.".format(name2))
+    time.sleep(1.5)
+    print("\n{} - BAHAHA! You're joking right??".format(name2))
+    time.sleep(1.5)
+    print("\n{} - Nah man. I just need to get home.".format(name1))
+    time.sleep(1.5)
+    print("\n{} - SHEESH!! We have a snoozer over here!".format(name2))
+    time.sleep(1.5)
+    print("""\n{} - You've walked right into my trap! We'll party till
+this smoke suffocates us!!""".format(name2))
+    time.sleep(2)
+    print("\n{} - Welp... here we go again!".format(name1))
+    time.sleep(2)
+
+
+def dialogue12(name1, name2):
+    print("""\n{} - Hey man, I just looked at the time.
+I better go soon!""".format(name1))
+    time.sleep(2)
+    print("""\n{} - Ohhhh all good man, just look
+for the house owner!""".format(name2))
+    time.sleep(2)
+    print("\n{} - Where is he?".format(name1))
+    time.sleep(1.5)
+    print("""\n{} - Ummmm... it's a bit foggy... sorry man.
+I can't point him out to you right now!""".format(name2))
+    time.sleep(2.5)
+    print("\n{} - I guess I'll have to look around myself...".format(name1))
+    time.sleep(1.5)
+
+
+def dialogue13(name1, name2):
+    print("""\n{} - Hey man, I opened the window!
+Can you see him now?""".format(name1))
+    time.sleep(2)
+    print("\n{} - Oh thanks! Yeah he's over there!".format(name2))
+    time.sleep(1.5)
+    print("\n{} - Ohhh yes I see.. thank you!".format(name1))
+    time.sleep(1.5)
+
+
+def dialogue14(name1, name2):
+    print("""\n{} - S-s-so... y-you're the one who
+r-ruined the party huh-h??""".format(name2))
+    time.sleep(2)
+    print("\n{} - What? No, I just need to get home.".format(name1))
+    time.sleep(1.5)
+    print("""\n{} - H-have you ever tried cocaine?
+I'll get you h-home if you doooo!!""".format(name2))
+    time.sleep(2)
+    print("\n{} - Wait. COCAINE??".format(name1))
+    time.sleep(1.5)
+
+
+def ending0(name):
+    input("""\nGood job {}. You successfully made it out of the suburb
+while making very well made decisions. (PRESS ENTER TO SCROLL
+THROUGH INSTRUCTIONS): """.format(name))
+    input("""\nUnfortunately, you didn't get to bond with CHRIS that
+much. This may be due to you not taking any marijuana whatsoever.""")
+    input("""\nAlthough marijuana has a terrible reputation in today's
+society, that doesn't mean you should turn down all opportunities
+to try it! How would you know if it's bad if you haven't tried it
+at least once??""")
+    input("""\nNow of course, if you really don't want to take a
+single drug in your life, that's fine. Health risks do exist. However,
+there will be moments where you won't really fit in with today's
+society. Feel free to try this program again if you want a different
+outcome to what you got!""".format(name))
+
+
+def ending1(name):
+    input("""\nGood job {}. You successfully made it out of the suburb
+while making very well made decisions. (PRESS ENTER TO SCROLL
+THROUGH INSTRUCTIONS): """.format(name))
+    input("""\nBoth you and CHRIS learned a lot throughout this experience.
+However, you two had the times of your lives and created
+a brand new friendship. You didn't overdo yourself, and that's
+the main part!""")
+    input("""\nSo make sure you look back on it! Drugs and alcohol are
+easily controllable. People just make the most terrible
+mistakes all the time.""")
+    input("""\nThank you for playing {}. This is a real life issue
+that you tackled very easily. Feel free to play
+again for a different ending!""".format(name))
+
+
+def ending2(name):
+    input("""\nGood job {}. You successfully made it out of the suburb
+while mostly making well made decisions. (PRESS ENTER TO SCROLL
+THROUGH INSTRUCTIONS): """.format(name))
+    input("""\nBoth you and CHRIS learned a lot throughout this experience.
+However, you two had the times of your lives and created
+a brand new friendship.""")
+    input("""\nUnfortunately, there is an addiction starting up within
+you {}. you could've laid down a bit less on the marijuana.""".format(name))
+    input("""\nAddiction is a huge problem amongst teenagers, and it's
+not just weed. It includes vaping and alcohol as well. It's very
+difficult to change as a person with a experience like that.""")
+    input("""\nYou should know the limits. If you choose to smoke everyday,
+it will majorly affect your health. Try playing again. You could come
+out with a slightly easier outcome!""")
+
+
+def ending3(name):
+    input("""\nGood job {}. You successfully made it out of the suburb
+while mostly making well made decisions. (PRESS ENTER TO SCROLL
+THROUGH INSTRUCTIONS): """.format(name))
+    input("""\nBoth you and CHRIS learned a lot throughout this experience.
+However, you two had the times of your lives and created
+a brand new friendship.""")
+    input("""\nUnfortunately, there is a huge marijuana addiction
+that you've been trapped into, {}.""".format(name))
+    input("""\nYou had multiple joints of marijuana during the
+experience. Your addictive tendencies may have strongly backfired. this
+leads to a life long addiction to marijuana, and a constant feeling of
+paranoia and curiosity of harder drugs, which is a very deadly mindset
+to have.""".format(name))
+    input("""\nYou made it out of there safely, but your long term effects
+have a lot more punishments. Try again {}. You may get a better
+outcome than this.""".format(name))
+
+
+def ending4(name):
+    input("""\nTHIEF - What are you doing here? Do you want a drink??
+(PRESS ENTER TO SCROLL THROUGH DIALOGUE): """)
+    input("""\n{} - Uhhhh... I'm not sure...""".format(name))
+    input("""\nTHIEF - Come on. You came to a party and you're not
+gonna drink? Here. Take this.""")
+    input("""\nCHRIS notices you take the drink, but you decide to drink
+    it instead. CHRIS storms out of the house after seeing what
+you've done.""".format(name))
+    input("""\nYour addictive tendencies lead you to curiosity.
+You end up having multiple drinks with the THIEF. You also spend the
+rest of the night at the house.""")
+    input(""""\nUnfortunately, you can't take it anymore. You end
+up blanking out with no one to support you.""")
+    print(""""\nALTERNATE ENDING: Drinking Route""")
+    time.sleep(1.5)
+
+
+def ending5():
+    input("""\nYou have already smoked to many times. The addiction
+is starting to kick in... (PRESS ENTER TO SCROLL
+THROUGH DIALOGUE): """)
+    input("""\nYou end up having multiple joints, eventually losing
+count of the amount of marijuana you've had""")
+    input("""\nCHRIS sees you do this but it's too late, your actions
+have led to intense paranoia and violence.""")
+    input("""\nDespite you wanting to still leave the house, that still
+may not happen due to your new unfortunate addiction. You end up
+passing out with an incredibly long term addiction to marijuana.""")
+    print("""\nALTERNATE ENDING: Too Much To Smoke""")
+    time.sleep(1.5)
+
+
+def ending6():
+    input("""\nYou end up incredibly angry that someone has snatched your
+weed. (PRESS ENTER TO SCROLL THROUGH DIALOGUE): """)
+    input("""\nThe affects of the marijuana have gotten to your brain,
+and you start to start incredibly violent around everyone.""")
+    input("""\nAlthough you make a start beating up people around
+you. It doesn't take that long for you to be knocked out yourself.""")
+    input("""\nAlthough you've been taught a lesson to not act so
+violent around the others around you, you still have a harsh addiction
+on marijuana.""")
+    print("""\nALTERNATE ENDING: Violent Over Marijuana""")
+    time.sleep(1.5)
+
+
+def ending7(name):
+    input("""\n{} - I mean, weed wasn't that bad... so far bad could
+this be??? (PRESS ENTER TO SCROLL THROUGH DIALOGUE): """.format(name))
+    input("""\nYou lay a line of cocaine of a table and decided to
+snort it.""")
+    input("""\nAlthough you feel an instant shock of euphoria, your
+mental health is already starting to deteriorate as an instant
+addiction occurs.""")
+    input("""\nAlthough weed is also criminalised, you realise it's no where
+near as bad as a harder drug such as cocaine. You end up losing
+yourself within the dodgy gang and never end up home.""")
+    print("\nALTERNATE ENDING: Cocaine Curiosity".format(name))
+    time.sleep(1.5)
