@@ -1,0 +1,17 @@
+
+# Prints all instructions and introduces the main plot of game:
+
+
+def instructions():
+    input("""\nYou are embarking on a journey within the dark nighttime
+streets of Auckland. (PRESS ENTER TO SCROLL THROUGH INSTRUCTIONS): """)
+    input("""\nYou end up lost at a party in a pitch black suburb and you now have
+to make cautious decisions with the presence of drugs and alcohol at
+your disposal.""")
+    input("""\nDon't ruin the fun though... you are there to have fun
+and hang out with new people. Don't be stupid about it! Choose
+your actions wisely...""")
+    input("""\n(THROUGHOUT THIS GAME, YOU WILL BE GIVEN SPECIFIC ACTIONS TO CHOOSE FROM.
+DEPENDING ON WHAT ACTIONS YOU CHOOSE, YOU"LL END UP WITH A SPECIFIC ENDING.
+DIALOGUE WILL ALSO BE PRESENT THROUGHOUT THE ENTIRE GAME.)""")
+    input("\nAre you ready to play? (ENTER ANYTHING): ")
