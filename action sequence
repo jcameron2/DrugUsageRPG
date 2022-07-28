@@ -1,0 +1,154 @@
+import time
+import random
+
+
+# Four action function:
+
+
+def action(question, alist):
+    choice_list = [1, 2, 3, 4]
+    print(question, "\n\nChoices:")
+    choice_loop = True
+    while choice_loop:
+        try:
+            print("\n1:", alist[0], "\n2:", alist[1])
+            print("3:", alist[2], "\n4:", alist[3])
+            input_action = int(input("\nENTER 1, 2, 3 OR 4: "))
+            if input_action in choice_list:
+                return input_action
+            else:
+                print("\n(PLEASE ENTER A VALID OPTION.)")
+        except ValueError:
+            print("\n(PLEASE ENTER A VALID OPTION.)")
+
+
+# Function that allows user to fight:
+
+
+def fight(loop, list1, list2, user, opp_name, one_dict, two_dict):
+    while loop == 1:
+        f_moves = list1
+        vm = list1
+        print("\n{}'S STATS: {}".format(user, one_dict))
+        print("{}'S STATS: {}".format(opp_name, two_dict))
+        f_direct = action("\nWHAT WILL YOU DO, {}?".format(user), f_moves) - 1
+        o_move = random.randint(0, 3)
+        two_dict = f_result(user, opp_name, one_dict, two_dict, f_direct, vm)
+        if two_dict[4] > 0:
+            vm = list2
+            one_dict = f_result(opp_name, user, two_dict, one_dict, o_move, vm)
+            if one_dict[4] <= 0:
+                print("\n-----YOU LOST!-----")
+                time.sleep(1.5)
+                win = True
+                return win
+            else:
+                pass
+        else:
+            print("\n-----YOU WON!-----")
+            time.sleep(1.5)
+            win = False
+            return win
+
+
+# Function that checks the user/opponent's move during a fight:
+
+
+def f_result(nme1, nme2, sts, opp, x, moves):
+    if x == 1 or x == 2:
+        opp[x + 1] = lower_stats(nme1, nme2, moves[x], opp[2], opp[3])
+    else:
+        opp[4] = offense(nme1, nme2, moves[x], sts[1], opp[2], sts[3], opp[4])
+    return opp
+
+
+# Function that calculates amount of damage depending on the move used:
+
+
+def offense(name1, name2, move, attack, defense, accuracy, stamina):
+    print("\n{} used {}!".format(name1, move))
+    time.sleep(1.5)
+    damage = attack * (random.randint(60, 100) / 77) / (defense / 10)
+    if move == 'PUNCH':
+        damage = round(damage * 1.2)
+    elif move == 'KICK':
+        damage = round(damage * 1.8)
+        accuracy = accuracy - 15
+    elif move == 'TACKLE':
+        damage = round(damage * 2.5)
+        accuracy = accuracy - 10
+
+    # Accuracy calculator:
+
+    hit = random.randint(1, 100)
+    if hit > accuracy:
+        print("\n{} missed his attack!".format(name1))
+        time.sleep(2)
+
+    # Print statements showing damage being dealt
+    # and returns the stamina:
+
+    else:
+        stamina = stamina - damage
+        print("\n{} dealt {} damage to {}!".format(name1, damage, name2))
+        time.sleep(2)
+        if stamina > 0:
+            pass
+        else:
+            print("\n{} now has 0 health!".format(name2))
+            time.sleep(1.5)
+            print("\n{} has fainted!".format(name2))
+            time.sleep(2)
+    return stamina
+
+
+# Move that decreases the opponent's defense or accuracy:
+
+
+def lower_stats(name1, name2, move, defense, accuracy):
+    if move == 'TEASE':
+        print("\n{} used TEASE!".format(name1))
+        time.sleep(1.5)
+        if 20 < defense < 30:
+            defense = 20
+            print("""\n{} was left mocked,
+their defense was lowered!""".format(name2))
+        elif defense == 20:
+            print("\nBut it failed!")
+        else:
+            defense = defense - 10
+            print("""\n{} was left mocked,
+their defense was lowered!""".format(name2))
+        time.sleep(2)
+        return defense
+
+# Move that decreases the opponent's accuracy:
+
+    elif move == 'SPRAY':
+        print("\n{} used SPRAY!".format(name1))
+        time.sleep(1.5)
+        if 20 < accuracy < 30:
+            accuracy = 20
+            print("""\n{} was left stunned,
+their accuracy was lowered!""".format(name2))
+        elif accuracy == 20:
+            print("\nBut it failed!")
+        else:
+            accuracy = accuracy - 10
+            print("""\n{} was left stunned,
+their accuracy was lowered!""".format(name2))
+        time.sleep(2)
+        return accuracy
+
+
+progression = 0
+name = "USER"
+o_name = "OPPONENT"
+
+# FIGHTER STATISTICS (1 = attack, 2 = defense, 3 = accuracy, 4 = health)
+
+dict1 = {1: 100, 2: 100, 3: 100, 4: 80}
+dict2 = {1: 130, 2: 60, 3: 80, 4: 100}
+m_list = ["PUNCH", "TEASE", "SPRAY", "KICK"]
+o_list = ["TACKLE", "TEASE", "SPRAY"]
+failure = fight(1, m_list, o_list, name, o_name, dict1, dict2)
