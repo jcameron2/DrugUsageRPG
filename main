@@ -1,0 +1,779 @@
+import title
+import instructions
+import dialogue
+import time
+import random
+
+
+# ---START OF FUNCTIONS---
+
+# Function that asks for user's name:
+
+
+def get_name(first_statement):
+    name_loop = True
+    while name_loop:
+        name_input = input(first_statement).upper().strip()
+        name_loop = False
+        while not name_loop:
+            print("\n'{}'.".format(name_input))
+            time.sleep(2)
+            c_name = input("\nIs this your chosen name? y/n: ").lower().strip()
+            if c_name == 'y' or c_name == 'yes':
+                return name_input
+            elif c_name == 'n' or c_name == 'no':
+                name_loop = True
+            else:
+                print("\nPlease enter YES or NO! Try again...")
+
+
+# Function that wipes all on-screen text:
+
+
+def clear_screen():
+    clear_counter = 0
+    while clear_counter < 40:
+        print()
+        clear_counter = clear_counter + 1
+    else:
+        pass
+
+
+# Four action function:
+
+
+def action(question, alist):
+    choice_list = [1, 2, 3, 4]
+    print(question, "\n\nChoices:")
+    choice_loop = True
+    while choice_loop:
+        try:
+            print("\n1:", alist[0], "\n2:", alist[1])
+            print("3:", alist[2], "\n4:", alist[3])
+            input_action = int(input("\nENTER 1, 2, 3 OR 4: "))
+            if input_action in choice_list:
+                return input_action
+            else:
+                print("\n(PLEASE ENTER A VALID OPTION.)")
+        except ValueError:
+            print("\n(PLEASE ENTER A VALID OPTION.)")
+
+
+# Two action function:
+
+
+def action2(question, blist):
+    choice_list = [1, 2]
+    print(question, "\n\nChoices:")
+    choice_loop = True
+    while choice_loop:
+        try:
+            print("\n1:", blist[0], "\n2:", blist[1])
+            input_action = int(input("\nENTER 1 OR 2: "))
+            if input_action in choice_list:
+                return input_action
+            else:
+                print("\n(PLEASE ENTER A VALID OPTION.)")
+        except ValueError:
+            print("\n(PLEASE ENTER A VALID OPTION.)")
+
+
+# Function that allows user to fight:
+
+
+def fight(loop, list1, list2, user, opp_name, one_dict, two_dict):
+    while loop == 1:
+        f_moves = list1
+        vm = list1
+        print("\n{}'S HEALTH: {}".format(user, one_dict[4]))
+        print("{}'S HEALTH: {}".format(opp_name, two_dict[4]))
+        f_direct = action("\nWHAT WILL YOU DO, {}?".format(user), f_moves) - 1
+        o_move = random.randint(0, 3)
+        two_dict = f_result(user, opp_name, one_dict, two_dict, f_direct, vm)
+        if two_dict[4] > 0:
+            vm = list2
+            one_dict = f_result(opp_name, user, two_dict, one_dict, o_move, vm)
+            if one_dict[4] <= 0:
+                print("\n-----YOU LOST!-----")
+                time.sleep(1.5)
+                win = True
+                return win
+            else:
+                pass
+        else:
+            print("\n-----YOU WON!-----")
+            time.sleep(1.5)
+            win = False
+            return win
+
+
+# Function that checks the user/opponent's move during a fight:
+
+
+def f_result(nme1, nme2, sts, opp, x, moves):
+    if x == 1 or x == 2:
+        opp[x + 1] = lower_stats(nme1, nme2, moves[x], opp[2], opp[3])
+    else:
+        opp[4] = offense(nme1, nme2, moves[x], sts[1], opp[2], sts[3], opp[4])
+    return opp
+
+
+# Function that calculates amount of damage depending on the move used:
+
+
+def offense(name1, name2, move, attack, defense, accuracy, stamina):
+    print("\n{} used {}!".format(name1, move))
+    time.sleep(1.5)
+    damage = attack * (random.randint(60, 100) / 77) / (defense / 10)
+    if move == 'PUNCH':
+        damage = round(damage * 1.2)
+    elif move == 'KICK':
+        damage = round(damage * 1.8)
+        accuracy = accuracy - 15
+    elif move == 'TACKLE':
+        damage = round(damage * 2.5)
+        accuracy = accuracy - 10
+
+    # Accuracy calculator:
+
+    hit = random.randint(1, 100)
+    if hit > accuracy:
+        print("\n{} missed his attack!".format(name1))
+        time.sleep(2)
+
+    # Print statements showing damage being dealt
+    # and returns the stamina:
+
+    else:
+        stamina = stamina - damage
+        print("\n{} dealt {} damage to {}!".format(name1, damage, name2))
+        time.sleep(2)
+        if stamina > 0:
+            pass
+        else:
+            print("\n{} now has 0 health!".format(name2))
+            time.sleep(1.5)
+            print("\n{} has fainted!".format(name2))
+            time.sleep(2)
+    return stamina
+
+
+# Move that decreases the opponent's defense or accuracy:
+
+
+def lower_stats(name1, name2, move, defense, accuracy):
+    if move == 'TEASE':
+        print("\n{} used TEASE!".format(name1))
+        time.sleep(1.5)
+        if 20 < defense < 30:
+            defense = 20
+            print("""\n{} was left mocked,
+their defense was lowered!""".format(name2))
+        elif defense == 20:
+            print("\nBut it failed!")
+        else:
+            defense = defense - 10
+            print("""\n{} was left mocked,
+their defense was lowered!""".format(name2))
+        time.sleep(2)
+        return defense
+
+# Move that decreases the opponent's accuracy:
+
+    elif move == 'SPRAY':
+        print("\n{} used SPRAY!".format(name1))
+        time.sleep(1.5)
+        if 20 < accuracy < 30:
+            accuracy = 20
+            print("""\n{} was left stunned,
+their accuracy was lowered!""".format(name2))
+        elif accuracy == 20:
+            print("\nBut it failed!")
+        else:
+            accuracy = accuracy - 10
+            print("""\n{} was left stunned,
+their accuracy was lowered!""".format(name2))
+        time.sleep(2)
+        return accuracy
+
+
+# Moves that counts the amount of smokes the user has:
+
+
+def count_smoke(smoke_statement):
+    smoke_check = False
+    while not smoke_check:
+        try:
+            joint = int(input("\n{}".format(smoke_statement)))
+            if -1 < joint < 11:
+                print("\nAs time passes... You have {} smokes.".format(joint))
+                time.sleep(2)
+                return joint
+            else:
+                print("\n(PLEASE ENTER A VALID OPTION.)")
+        except ValueError:
+            print("\n(PLEASE ENTER A VALID OPTION.)")
+
+
+# ---END OF FUNCTIONS---
+
+# ---START OF MAIN---
+
+title.title()
+name = get_name("\nPlease input your name, then we shall begin: ")
+print("\nAlright {}, here are the instructions:".format(name))
+time.sleep(2)
+clear_screen()
+instructions.instructions()
+print("\nALRIGHT {}, LET'S DO THIS.".format(name))
+time.sleep(1.5)
+
+# 'Try again' loop function:
+
+play_again = 'y'
+while play_again == 'y' or play_again == 'yes':
+
+    # f = failure; will determine the failure/end of a play-through:
+
+    f = False
+
+    # ACTUAL GAME STARTS HERE:
+
+    clear_screen()
+    print("""You are currently outside a party in a house that's right
+in front of you. See what you can find. You might be able to get
+home in a safe way if you choose to trust the right people...""")
+    time.sleep(3)
+
+    # USER FIGHTER STATS (1 = attack, 2 = defense, 3 = accuracy, 4 = health)
+    # dict1 = USER, dict2 = OPPONENT.
+
+    user_stats = {1: 100, 2: 100, 3: 100, 4: 80}
+    dict1 = user_stats
+
+    # BOOLEAN LIST + EARLY VARIABLES (ACT 1):
+
+    replay = False
+    marijuana_check = False
+    friend_check = False
+    act1_complete = False
+    quest_check = False
+    homie_check = False
+    beat_stealer = False
+    drink_check = False
+    have_smoked = False
+    talk_check = False
+    open_window = False
+    house_key = False
+    game_complete = False
+    starter_list = ["GO FORWARD", "GO BACK", "TURN LEFT", "TURN RIGHT"]
+    m_list1 = starter_list
+    m_list2 = ["YES", "NO"]
+    friend = "UNKNOWN TEENAGER"
+    smoke = 0
+
+    # LOOP THAT'S NEEDED FOR WHOLE GAME TO WORK:
+
+    while not f:
+        direction = action("""
+WHAT SHALL YOU DO, {}?""".format(name), m_list1)
+
+        # FROM HERE, THE CODE BRANCHES THROUGHOUT MULTIPLE DIFFERENT
+        # PATHWAYS. THIS WILL INCLUDE A LOT OF OUTCOMES:
+
+        # IF USER GOES FORWARD:
+
+        if direction == 1 and m_list1[0] == "GO FORWARD":
+            if not act1_complete:
+                print("\nYou went forward and tried to enter the house...")
+                time.sleep(1.5)
+                if not friend_check:
+                    print("""\n...But no one seems to know you.
+You weren't allowed in.""")
+                    time.sleep(2)
+                else:
+                    print("""\n...But no one seems to know you.
+You end up calling CHRIS.""")
+                    time.sleep(2)
+                    dialogue.dialogue1(name, friend)
+                    print("""\nYou proceed to go forward and outside
+the frontdoor with {}...""".format(friend))
+                    time.sleep(3)
+                    print("""\nYou're now inside of the party. it would probably be best
+if you did something to gain more trust from CHRIS...""")
+                    act1_complete = True
+                    replay = False
+                    time.sleep(2)
+                    m_list1 = ["SMOKE", "TALK", "TAKE", "EXIT"]
+            else:
+                print("\nYou entered the house... again.")
+                time.sleep(2)
+                m_list1 = ["SMOKE", "TALK", "TAKE", "EXIT"]
+
+        # IF THE USER EXPLORES THE HOUSE AFTER SMOKING FOR THE FIRST TIME:
+
+        elif direction == 1 and m_list1[0] == "EXPLORE" and have_smoked:
+            if talk_check and not open_window:
+                print("""\nYou went to explore, but the house is incredibly
+foggy due to smoke.""")
+                time.sleep(2)
+                direction = action2("""
+SHOULD YOU STILL EXPLORE, {}?""".format(name), m_list2)
+                if direction == 1:
+                    print("""\nYou proceed to go around the house,
+but end up bumping into someone.""")
+                    time.sleep(2)
+                    print("""\nDRUNK MAN - OI! WATCH WHERE
+YOU'RE BLOODY GOING!!""")
+                    time.sleep(2)
+                    o_name = "DRUNK MAN"
+                    print("""
+{} is challenging you to a fight!""".format(o_name))
+                    time.sleep(2)
+                    dict2 = {1: 75, 2: 125, 3: 80, 4: 160}
+                    m_list1 = ["TACKLE", "TEASE", "SPRAY", "KICK"]
+                    o_list = ["KICK", "TEASE", "SPRAY", "KICK"]
+                    f = fight(1, m_list1, o_list, name, o_name, dict1, dict2)
+                    if not f:
+                        print("""\nAfter dealing with him, you proceeded to open a window
+to clear the smog! You can now see clearly!""")
+                        dict1 = user_stats
+                        open_window = True
+                        talk_check = False
+                        time.sleep(2)
+                    else:
+                        print("""\nPOST GAME TIP: Both marijuana and alcohol can be a
+huge cause to a more violent nature.""")
+                        time.sleep(2)
+                elif direction == 2:
+                    print("\nYou proceed to retreat.")
+                    time.sleep(2)
+            elif not talk_check and not open_window:
+                print("""\n{} - I really want to explore, but I really
+should go and catch up with CHRIS first.""".format(name))
+                time.sleep(2)
+            elif not talk_check and open_window:
+                print("""\nThere really isn't anything else to explore
+in this house.""")
+                time.sleep(2)
+
+        # IF THE USER TRIES TO SMOKE FOR THE FIRST TIME:
+
+        elif direction == 1 and drink_check and m_list1[0] == "SMOKE":
+            print("""\nYou put some marijuana in a blunt
+and gave it to CHRIS.""")
+            time.sleep(2)
+            dialogue.dialogue8(name, friend)
+            smoke = count_smoke("""PLEASE ENTER THE AMOUNT OF TIMES
+YOU WILL SMOKE (0 - 10): """)
+            if 0 < smoke < 4:
+                print("""\nYou feel incredibly good.
+Your overall very calm as you chill with CHRIS!""")
+                time.sleep(2.5)
+                user_stats = {1: 120, 2: 120, 3: 110, 4: 110}
+            elif 3 < smoke < 8:
+                print("\nYou feel quite dazed, but still present.")
+                time.sleep(2)
+                user_stats = {1: 110, 2: 110, 3: 105, 4: 100}
+            elif 7 < smoke < 11:
+                print("\nYou feel very agitated. Your confidence lowers!")
+                time.sleep(2)
+                user_stats = {1: 95, 2: 105, 3: 100, 4: 90}
+            dict1 = user_stats
+            have_smoked = True
+            m_list1 = ["EXPLORE", "TALK", "SMOKE", "EXIT"]
+            clear_screen()
+            print("\n-----TIME CONTINUES TO PASS-----")
+            time.sleep(3)
+            print("""\n{} - Damn... it's been a while!
+I should really head home now...""".format(name))
+            time.sleep(2)
+
+        elif direction == 1 and m_list1[0] == "SMOKE" and not drink_check:
+            print("""\nYou look at your bag of marijuana.
+It might not be the most comfortable time to start smoking now.""")
+            time.sleep(2)
+            print("""\n{} - I'll have to gain a bigger trust
+with CHRIS first...""".format(name))
+            time.sleep(1.5)
+
+        # IF THE USER CONFRONTS HOUSE OWNER:
+
+        elif direction == 1 and m_list1[0] == "CONFRONT" and have_smoked:
+            if not house_key:
+                print("\nYou decided to confront the house owner.")
+                time.sleep(2)
+                o_name = "HOUSE OWNER"
+                dialogue.dialogue11(name, o_name)
+                print("\n{} is challenging you to a fight!".format(o_name))
+                dict2 = {1: 110, 2: 115, 3: 95, 4: 130}
+                m_list1 = ["TACKLE", "TEASE", "SPRAY", "KICK"]
+                o_list = ["KICK", "TEASE", "SPRAY", "TACKLE"]
+                f = fight(1, m_list1, o_list, name, o_name, dict1, dict2)
+                if not f:
+                    print("\nYou received the HOUSE KEY!")
+                    dict1 = user_stats
+                    time.sleep(1.5)
+                    house_key = True
+                    m_list1 = ["CONFRONT", "TALK", "SMOKE", "EXIT"]
+                else:
+                    print("""\nPOST GAME TIP: Drugged parties leads to ignorance
+and less remorseful behaviour from people.""")
+                    time.sleep(2)
+            elif house_key:
+                print("\nThe HOUSE OWNER remains knocked out...")
+                time.sleep(2)
+
+        # IF USER GOES BACK:
+
+        elif direction == 2 and m_list1[1] == "GO BACK":
+            print("""\nYou went back, and you found an
+agitated gang of weed-head teens.""")
+            time.sleep(1.5)
+            print("\nThey seem to be very dodgy.")
+            time.sleep(1.5)
+            direction = action2("""
+DO YOU WANT TO CONFRONT THE GANG, {}?""".format(name), m_list2)
+            if direction == 1:
+                dict1[4] = 0
+                print("""\nYou tap the shoulder of one of the teens, but they thought you
+were threatening them. They ended up beating you to death.""")
+                time.sleep(2)
+                f = True
+                print("\n-----YOU LOST!-----")
+                time.sleep(1.5)
+                print("""\nPOST GAME TIP: Maybe it's not the best to mess
+around with dodgy gangs...""")
+                time.sleep(2)
+                break
+            else:
+                print("\nYou rightfully choose to retreat.")
+                time.sleep(2)
+
+        # IF THE USER TALKS TO CHRIS AT ALL IN THE HOUSE:
+
+        elif direction == 2 and m_list1[1] == "TALK" and not have_smoked:
+            print("\nYou decide to talk to CHRIS.")
+            time.sleep(2)
+            if not quest_check:
+                dialogue.dialogue9(name, friend)
+                quest_check = True
+            elif quest_check and not beat_stealer:
+                print("""\nCHRIS: Please go get my mates, and also my
+drink from that thief!""")
+                time.sleep(2)
+            elif quest_check and beat_stealer:
+                print("""\nCHRIS: Yo! You got my drink back! Thank you so much.
+Let me know if you need anything!""")
+                time.sleep(2)
+                drink_check = True
+        elif direction == 2 and m_list1[1] == "TALK" and have_smoked:
+            if not talk_check:
+                print("\nYou decided to talk to CHRIS.")
+                time.sleep(2)
+                if not open_window:
+                    dialogue.dialogue12(name, friend)
+                    talk_check1 = True
+                elif open_window and not house_key:
+                    dialogue.dialogue13(name, friend)
+                    m_list1 = ["CONFRONT", "TALK", "SMOKE", "EXIT"]
+                elif house_key:
+                    print("""\nCHRIS - Oh dang! you actually got the
+HOUSE KEY!""")
+                    time.sleep(2)
+                    print("""\nCHRIS - Feel free to leave man. Be careful
+though. This party has gotten a bit too crazy...""")
+                    time.sleep(2)
+            else:
+                print("""{} - I've already talked to CHRIS enough times.
+I should go do my own thing.""".format(name))
+                time.sleep(2.5)
+
+        # IF USER GOES LEFT:
+
+        elif direction == 3 and m_list1[2] == "TURN LEFT":
+            if not marijuana_check:
+                print("""\nYou went left along the dark unknown street, and found a strange
+person possessing a huge amount of marijuana.""")
+                time.sleep(3)
+                direction = action2("""
+DO YOU WANT TO TALK TO HIM, {}?""".format(name), m_list2)
+                if direction == 1:
+                    o_name = "SUSPICIOUS MAN"
+                    dialogue.dialogue2(name, o_name)
+                    print("\nThe SUSPICIOUS MAN challenges you to a fight!")
+                    time.sleep(1.5)
+                    dict2 = {1: 60, 2: 50, 3: 75, 4: 80}
+                    m_list1 = ["PUNCH", "TEASE", "SPRAY", "KICK"]
+                    o_list = ["PUNCH", "TEASE", "SPRAY", "PUNCH"]
+                    f = fight(1, m_list1, o_list, name, o_name, dict1, dict2)
+                    if not f:
+                        m_list1 = starter_list
+                        dict1 = user_stats
+                        print("\nYou received a BAG OF MARIJUANA!")
+                        time.sleep(1)
+                        marijuana_check = True
+                    else:
+                        print("""\nPOST GAME TIP: Marijuana may cause schizophrenia.
+This is a huge long term affect that impacts many lives today.""")
+                        time.sleep(2)
+                else:
+                    print("\nYou chose to retreat.")
+                    time.sleep(2)
+            else:
+                print("""\nAll you see is the suspicious man...
+\nAlthough you knocked him out, people would just assume he
+passed out from alcohol.""")
+                time.sleep(2.5)
+
+        # IF THE USER TAKES THE THIEF'S DRINK:
+
+        elif direction == 3 and m_list1[2] == "TAKE" and not quest_check:
+            print("""\n{}: I really shouldn't mess with other people's stuff...
+unless CHRIS wants me to... I should probably talk to him.""".format(name))
+            time.sleep(2)
+        elif direction == 3 and m_list1[2] == "TAKE" and quest_check:
+            if not beat_stealer:
+                print("\nYou look at the person CHRIS was talking about.")
+                time.sleep(1.5)
+                m_list2 = ["TAKE HIS DRINK", "GAIN HIS TRUST"]
+                direction = action2("""
+MAKE THE DECISION, {}.""".format(name), m_list2)
+                if direction == 1:
+                    print("\nYou went to steal from the real thief.")
+                    time.sleep(2)
+                    o_name = "THIEF"
+                    print("""
+The {} is challenging you to a fight!""".format(o_name))
+                    dict2 = {1: 100, 2: 100, 3: 75, 4: 100}
+                    m_list1 = ["PUNCH", "TEASE", "SPRAY", "KICK"]
+                    o_list = ["KICK", "TEASE", "TEASE", "KICK"]
+                    f = fight(1, m_list1, o_list, name, o_name, dict1, dict2)
+                    if not f:
+                        print("""\nWait a minute... it looks like the THIEF isn't
+quite done yet!""")
+                        time.sleep(2)
+
+                        # PREVIOUS QUEST CHECK (homie_check):
+
+                        if homie_check:
+                            print("""\n...but CHRIS' friends barge him
+and tackle him down!""")
+                            time.sleep(2.5)
+                            dialogue.dialogue10("OWEN", o_name)
+                            dict1 = user_stats
+                            time.sleep(2)
+                            print("\n-----YOU WON!-----")
+                            time.sleep(1)
+                            print("\nYou received CHRIS' DRINK!")
+                            time.sleep(2)
+                            m_list1 = ["SMOKE", "TALK", "TAKE", "EXIT"]
+                            m_list2 = ["YES", "NO"]
+                            beat_stealer = True
+                        else:
+                            f = True
+                            print("\nTHIEF USES SUBMISSION!")
+                            time.sleep(1.5)
+                            print("\nThe THIEF knocked you out in 1 blow!")
+                            time.sleep(2)
+                            print("\n-----YOU LOST!-----")
+                            time.sleep(1.5)
+                            print("""\nTIP: Make sure you call for CHRIS'
+friends before confronting the THIEF!""")
+                            time.sleep(2)
+                            break
+                    elif f:
+                        print("""\nPOST GAME TIP: Comparing alcohol to marijuana,
+both are unhealthy, but people tend to be more addictive towards alcohol
+compared to marijuana.""")
+                        time.sleep(2.5)
+                elif direction == 2:
+                    print("""\nYou're quite curious about the alcohol
+this person is drinking.""")
+                    time.sleep(2)
+                    dialogue.ending4(name)
+                    time.sleep(2)
+                    f = True
+            elif beat_stealer:
+                print("""\nThere's nothing really left to take... that also
+goes for thieves to fight...""")
+                time.sleep(2.5)
+
+            # IF THE USER SMOKES:
+
+        elif direction == 3 and m_list1[2] == "SMOKE":
+            if not open_window:
+                print("\nYou decided to smoke.")
+                smoke = smoke + 1
+                time.sleep(2)
+                if smoke > 10:
+                    dialogue.ending5()
+                    f = True
+                else:
+                    print("\nYou feel your throat burn.")
+                    time.sleep(2)
+            elif open_window:
+                print("\nYou decided to smoke, but your weed has disappeared.")
+                time.sleep(2)
+                if smoke > 7:
+                    dialogue.ending6()
+                    f = True
+                elif 4 < smoke < 8:
+                    print("""\nYou end up being very angry about it,
+but don't fight against it.""")
+                    time.sleep(2)
+                elif -1 < smoke < 5:
+                    print("\nHowever, you don't really care.")
+                    time.sleep(2)
+
+        # IF USER GOES RIGHT:
+
+        elif direction == 4 and m_list1[3] == "TURN RIGHT":
+            if not friend_check:
+                print("""\nYou went right along the dark street, and found a group of
+teenagers fighting each other. One of them notices you.""")
+                time.sleep(2)
+                if replay:
+                    dialogue.dialogue7(friend)
+                elif not replay:
+                    dialogue.dialogue3(name, friend)
+                    replay = True
+                if marijuana_check:
+                    print("""\n{} - Yo wait! You've got some weed!
+Surely can I have some?""".format(friend))
+                    time.sleep(2)
+                    direction = action2("""
+DO YOU WANT TO GIVE HIM MARIJUANA, {}?""".format(name), m_list2)
+                    if direction == 1:
+                        print("""\n{} - Awesome, thank you so much!
+That's the one!!""".format(friend))
+                        time.sleep(2)
+                        friend = "CHRIS"
+                        print("""\n{}: By the way, my name is Chris.
+Nice to meet you!""".format(friend))
+                        time.sleep(1.5)
+                        friend_check = True
+                    else:
+                        print("""\n{} - No? Well I'm sorry man... I can't be friends
+with you if that's the case.""".format(friend))
+                        time.sleep(1.5)
+                else:
+                    dialogue.dialogue4(name, friend)
+
+        # IF YOU LOOK RIGHT AFTER BEFRIENDING CHRIS:
+
+            elif friend_check:
+                print("\nYou look to your right.")
+                time.sleep(1.5)
+                if quest_check and not homie_check:
+                    o_name = "OWEN"
+                    dialogue.dialogue5(name, o_name)
+                    time.sleep(2)
+                    print("\n{} is challenging you to a fight!".format(o_name))
+                    dict2 = {1: 90, 2: 95, 3: 90, 4: 95}
+                    m_list1 = ["PUNCH", "TEASE", "SPRAY", "KICK"]
+                    o_list = ["PUNCH", "TEASE", "SPRAY", "PUNCH"]
+                    f = fight(1, m_list1, o_list, name, o_name, dict1, dict2)
+                    if not f:
+                        m_list1 = starter_list
+                        dict1 = user_stats
+                        homie_check = True
+                        dialogue.dialogue6(name, o_name)
+                        time.sleep(2)
+                    else:
+                        print("""\nPOST GAME TIP: Even friends/mutual friends could
+act violent towards you under the effects of marijuana.""")
+                        time.sleep(2)
+                elif not homie_check:
+                    print("""\nPerhaps there's no need to worry
+about the rest of those teenagers.""")
+                    time.sleep(2)
+                elif homie_check:
+                    print("""\nEveryone has already decided to go
+inside the house!""")
+                    time.sleep(2)
+
+        # IF THE USER EXITS THE HOUSE:
+
+        elif direction == 4 and m_list1[3] == "EXIT" and not have_smoked:
+            print("""\nYou went outside the house,
+back where you originally started.""")
+            time.sleep(2)
+            m_list1 = ["GO FORWARD", "GO BACK", "TURN LEFT", "TURN RIGHT"]
+
+        # IF THE USER TRIES TO EXIT THE HOUSE IN ACT 2 (FINAL PART):
+
+        elif direction == 4 and m_list1[3] == "EXIT" and have_smoked:
+            if house_key:
+                print("\nYou unlocked the front door and decided to exit.")
+                time.sleep(2)
+                print("""\nThe party is too crazy now... the strange gang proceeds
+to surround you and your mates.""")
+                time.sleep(2)
+                o_name = "GANG LEADER"
+                dialogue.dialogue14(name, o_name)
+                m_list2 = ["TAKE IT", "DON'T TAKE IT"]
+                direction = action2("""
+MAKE THE DECISION, {}.""".format(name), m_list2)
+                if direction == 1:
+                    dialogue.ending7(name)
+                    f = True
+                elif direction == 2:
+                    print("""\n{} - Bro, that stuff is messed up. I'll never
+take those terrible drugs!""".format(name))
+                    time.sleep(2.5)
+                    print("\n{} is challenging you to a fight!".format(o_name))
+                    dict2 = {1: 200, 2: 50, 3: 130, 4: 100}
+                    m_list1 = ["TACKLE", "TEASE", "SPRAY", "KICK"]
+                    o_list = ["KICK", "TEASE", "SPRAY", "TACKLE"]
+                    f = fight(1, m_list1, o_list, name, o_name, dict1, dict2)
+                    if not f:
+                        print("""\n{} - Wow... thank goodness
+that's over.""".format(name))
+                        time.sleep(1.5)
+                        print("""\nWELL DONE!\n
+You proceed to leave and return home.""")
+                        time.sleep(2.5)
+                        f = True
+                        game_complete = True
+                    else:
+                        print("""\nPOST GAME TIP: You should NEVER be curious
+about taking very hard drugs such as cocaine just because weed
+is okay.""")
+                        time.sleep(2.5)
+            elif not house_key:
+                print("\nYou tried to get out, but the front door is locked!")
+                time.sleep(2)
+
+# IF THE USER COMPLETES THE GAME WITHOUT LOSING:
+
+    if game_complete:
+        print("\nGAME RESULTS:")
+        time.sleep(2)
+        if smoke == 0:
+            dialogue.ending0(name)
+        elif 0 < smoke < 4:
+            dialogue.ending1(name)
+        elif 3 < smoke < 8:
+            dialogue.ending2(name)
+        elif 7 < smoke < 11:
+            dialogue.ending3(name)
+
+    # 'PLAY AGAIN' LOOP:
+
+    while f:
+        play_again = input("""
+DO YOU WANT TO PLAY AGAIN? Y/N: """).lower().strip()
+        if play_again == 'yes' or play_again == 'y':
+            print("\nALRIGHT {}, LET'S DO THIS.".format(name))
+            time.sleep(2)
+            f = False
+        elif play_again == 'no' or play_again == 'n':
+            print("\nTHANK YOU FOR PLAYING DRUG USAGE RPG!")
+            time.sleep(2)
+            break
+        else:
+            print("\nPLEASE ENTER A VALID OPTION.")
+
+
+# ---END OF MAIN---
