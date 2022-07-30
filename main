@@ -249,9 +249,8 @@ home in a safe way if you choose to trust the right people...""")
     # dict1 = USER, dict2 = OPPONENT.
 
     user_stats = {1: 100, 2: 100, 3: 100, 4: 80}
-    dict1 = user_stats
 
-    # BOOLEAN LIST + EARLY VARIABLES (ACT 1):
+    # FALSE BOOLEANS (EACH BOOLEAN REPRESENTS A DIFFERENT PATHWAY IN THE GAME):
 
     replay = False
     marijuana_check = False
@@ -266,6 +265,9 @@ home in a safe way if you choose to trust the right people...""")
     open_window = False
     house_key = False
     game_complete = False
+
+    # PRIMARY GAME VARIABLES:
+
     starter_list = ["GO FORWARD", "GO BACK", "TURN LEFT", "TURN RIGHT"]
     m_list1 = starter_list
     m_list2 = ["YES", "NO"]
@@ -275,6 +277,7 @@ home in a safe way if you choose to trust the right people...""")
     # LOOP THAT'S NEEDED FOR WHOLE GAME TO WORK:
 
     while not f:
+        dict1 = user_stats
         direction = action("""
 WHAT SHALL YOU DO, {}?""".format(name), m_list1)
 
@@ -337,7 +340,6 @@ YOU'RE BLOODY GOING!!""")
                     if not f:
                         print("""\nAfter dealing with him, you proceeded to open a window
 to clear the smog! You can now see clearly!""")
-                        dict1 = user_stats
                         open_window = True
                         talk_check = False
                         time.sleep(2)
@@ -379,7 +381,6 @@ Your overall very calm as you chill with CHRIS!""")
                 print("\nYou feel very agitated. Your confidence lowers!")
                 time.sleep(2)
                 user_stats = {1: 95, 2: 105, 3: 100, 4: 90}
-            dict1 = user_stats
             have_smoked = True
             m_list1 = ["EXPLORE", "TALK", "SMOKE", "EXIT"]
             clear_screen()
@@ -412,7 +413,6 @@ with CHRIS first...""".format(name))
                 f = fight(1, m_list1, o_list, name, o_name, dict1, dict2)
                 if not f:
                     print("\nYou received the HOUSE KEY!")
-                    dict1 = user_stats
                     time.sleep(1.5)
                     house_key = True
                     m_list1 = ["CONFRONT", "TALK", "SMOKE", "EXIT"]
@@ -509,7 +509,6 @@ DO YOU WANT TO TALK TO HIM, {}?""".format(name), m_list2)
                     f = fight(1, m_list1, o_list, name, o_name, dict1, dict2)
                     if not f:
                         m_list1 = starter_list
-                        dict1 = user_stats
                         print("\nYou received a BAG OF MARIJUANA!")
                         time.sleep(1)
                         marijuana_check = True
@@ -561,7 +560,6 @@ quite done yet!""")
 and tackle him down!""")
                             time.sleep(2.5)
                             dialogue.dialogue10("OWEN", o_name)
-                            dict1 = user_stats
                             time.sleep(2)
                             print("\n-----YOU WON!-----")
                             time.sleep(1)
@@ -676,7 +674,6 @@ with you if that's the case.""".format(friend))
                     f = fight(1, m_list1, o_list, name, o_name, dict1, dict2)
                     if not f:
                         m_list1 = starter_list
-                        dict1 = user_stats
                         homie_check = True
                         dialogue.dialogue6(name, o_name)
                         time.sleep(2)
