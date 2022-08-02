@@ -264,7 +264,7 @@ def ending5():
 is starting to kick in... (PRESS ENTER TO SCROLL
 THROUGH DIALOGUE): """)
     input("""\nYou end up having multiple joints, eventually losing
-count of the amount of marijuana you've had""")
+count of the amount of marijuana you've had.""")
     input("""\nCHRIS sees you do this but it's too late, your actions
 have led to intense paranoia and violence.""")
     input("""\nDespite you wanting to still leave the house, that still
