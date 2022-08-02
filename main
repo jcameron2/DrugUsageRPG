@@ -11,18 +11,18 @@ import random
 
 
 def get_name(first_statement):
-    name_loop = True
-    while name_loop:
+    f_loop = True
+    while f_loop:
         name_input = input(first_statement).upper().strip()
-        name_loop = False
-        while not name_loop:
+        f_loop = False
+        while not f_loop:
             print("\n'{}'.".format(name_input))
             time.sleep(2)
-            c_name = input("\nIs this your chosen name? y/n: ").lower().strip()
-            if c_name == 'y' or c_name == 'yes':
+            name_check = input("\nIs this name correct? y/n: ").lower().strip()
+            if name_check == 'y' or name_check == 'yes':
                 return name_input
-            elif c_name == 'n' or c_name == 'no':
-                name_loop = True
+            elif name_check == 'n' or name_check == 'no':
+                f_loop = True
             else:
                 print("\nPlease enter YES or NO! Try again...")
 
@@ -45,8 +45,8 @@ def clear_screen():
 def action(question, alist):
     choice_list = [1, 2, 3, 4]
     print(question, "\n\nChoices:")
-    choice_loop = True
-    while choice_loop:
+    f_loop = True
+    while f_loop:
         try:
             print("\n1:", alist[0], "\n2:", alist[1])
             print("3:", alist[2], "\n4:", alist[3])
@@ -65,8 +65,8 @@ def action(question, alist):
 def action2(question, blist):
     choice_list = [1, 2]
     print(question, "\n\nChoices:")
-    choice_loop = True
-    while choice_loop:
+    f_loop = True
+    while f_loop:
         try:
             print("\n1:", blist[0], "\n2:", blist[1])
             input_action = int(input("\nENTER 1 OR 2: "))
@@ -81,8 +81,8 @@ def action2(question, blist):
 # Function that allows user to fight:
 
 
-def fight(loop, list1, list2, user, opp_name, one_dict, two_dict):
-    while loop == 1:
+def fight(f_loop, list1, list2, user, opp_name, one_dict, two_dict):
+    while f_loop == 1:
         f_moves = list1
         vm = list1
         print("\n{}'S HEALTH: {}".format(user, one_dict[4]))
@@ -96,15 +96,15 @@ def fight(loop, list1, list2, user, opp_name, one_dict, two_dict):
             if one_dict[4] <= 0:
                 print("\n-----YOU LOST!-----")
                 time.sleep(1.5)
-                win = True
-                return win
+                loss = True
+                return loss
             else:
                 pass
         else:
             print("\n-----YOU WON!-----")
             time.sleep(1.5)
-            win = False
-            return win
+            loss = False
+            return loss
 
 
 # Function that checks the user/opponent's move during a fight:
@@ -201,8 +201,8 @@ their accuracy was lowered!""".format(name2))
 
 
 def count_smoke(smoke_statement):
-    smoke_check = False
-    while not smoke_check:
+    f_loop = True
+    while f_loop:
         try:
             joint = int(input("\n{}".format(smoke_statement)))
             if -1 < joint < 11:
@@ -225,8 +225,6 @@ print("\nAlright {}, here are the instructions:".format(name))
 time.sleep(2)
 clear_screen()
 instructions.instructions()
-print("\nALRIGHT {}, LET'S DO THIS.".format(name))
-time.sleep(1.5)
 
 # 'Try again' loop function:
 
@@ -239,16 +237,13 @@ while play_again == 'y' or play_again == 'yes':
 
     # ACTUAL GAME STARTS HERE:
 
+    print("\nALRIGHT {}, LET'S DO THIS.".format(name))
+    time.sleep(1.5)
     clear_screen()
     print("""You are currently outside a party in a house that's right
 in front of you. See what you can find. You might be able to get
 home in a safe way if you choose to trust the right people...""")
     time.sleep(3)
-
-    # USER FIGHTER STATS (1 = attack, 2 = defense, 3 = accuracy, 4 = health)
-    # dict1 = USER, dict2 = OPPONENT.
-
-    user_stats = {1: 100, 2: 100, 3: 100, 4: 80}
 
     # FALSE BOOLEANS (EACH BOOLEAN REPRESENTS A DIFFERENT PATHWAY IN THE GAME):
 
@@ -276,13 +271,18 @@ home in a safe way if you choose to trust the right people...""")
 
     # LOOP THAT'S NEEDED FOR WHOLE GAME TO WORK:
 
+    # USER FIGHTER STATS (1 = attack, 2 = defense, 3 = accuracy, 4 = health)
+    # dict1 = USER, dict2 = OPPONENT.
+
     while not f:
-        dict1 = user_stats
+        dict1 = {1: 100, 2: 100, 3: 100, 4: 100}
         direction = action("""
 WHAT SHALL YOU DO, {}?""".format(name), m_list1)
 
         # FROM HERE, THE CODE BRANCHES THROUGHOUT MULTIPLE DIFFERENT
-        # PATHWAYS. THIS WILL INCLUDE A LOT OF OUTCOMES:
+        # PATHWAYS. THIS WILL INCLUDE A LOT OF DIFFERENT OUTCOMES THAT
+        # MAY INCLUDE DIALOGUE, AND MANY ACTIVATIONS ON DIFFERENT
+        # BOOLEANS AND FUNCTIONS:
 
         # IF USER GOES FORWARD:
 
@@ -333,7 +333,7 @@ YOU'RE BLOODY GOING!!""")
                     print("""
 {} is challenging you to a fight!""".format(o_name))
                     time.sleep(2)
-                    dict2 = {1: 75, 2: 125, 3: 80, 4: 160}
+                    dict2 = {1: 75, 2: 125, 3: 80, 4: 150}
                     m_list1 = ["TACKLE", "TEASE", "SPRAY", "KICK"]
                     o_list = ["KICK", "TEASE", "SPRAY", "KICK"]
                     f = fight(1, m_list1, o_list, name, o_name, dict1, dict2)
@@ -372,15 +372,12 @@ YOU WILL SMOKE (0 - 10): """)
                 print("""\nYou feel incredibly good.
 Your overall very calm as you chill with CHRIS!""")
                 time.sleep(2.5)
-                user_stats = {1: 120, 2: 120, 3: 110, 4: 110}
             elif 3 < smoke < 8:
                 print("\nYou feel quite dazed, but still present.")
                 time.sleep(2)
-                user_stats = {1: 110, 2: 110, 3: 105, 4: 100}
             elif 7 < smoke < 11:
                 print("\nYou feel very agitated. Your confidence lowers!")
                 time.sleep(2)
-                user_stats = {1: 95, 2: 105, 3: 100, 4: 90}
             have_smoked = True
             m_list1 = ["EXPLORE", "TALK", "SMOKE", "EXIT"]
             clear_screen()
@@ -407,7 +404,7 @@ with CHRIS first...""".format(name))
                 o_name = "HOUSE OWNER"
                 dialogue.dialogue11(name, o_name)
                 print("\n{} is challenging you to a fight!".format(o_name))
-                dict2 = {1: 110, 2: 115, 3: 95, 4: 130}
+                dict2 = {1: 105, 2: 110, 3: 95, 4: 120}
                 m_list1 = ["TACKLE", "TEASE", "SPRAY", "KICK"]
                 o_list = ["KICK", "TEASE", "SPRAY", "TACKLE"]
                 f = fight(1, m_list1, o_list, name, o_name, dict1, dict2)
@@ -508,6 +505,7 @@ DO YOU WANT TO TALK TO HIM, {}?""".format(name), m_list2)
                     o_list = ["PUNCH", "TEASE", "SPRAY", "PUNCH"]
                     f = fight(1, m_list1, o_list, name, o_name, dict1, dict2)
                     if not f:
+                        user_stats = {1: 100, 2: 100, 3: 100, 4: 80}
                         m_list1 = starter_list
                         print("\nYou received a BAG OF MARIJUANA!")
                         time.sleep(1)
@@ -546,7 +544,7 @@ MAKE THE DECISION, {}.""".format(name), m_list2)
 The {} is challenging you to a fight!""".format(o_name))
                     dict2 = {1: 100, 2: 100, 3: 75, 4: 100}
                     m_list1 = ["PUNCH", "TEASE", "SPRAY", "KICK"]
-                    o_list = ["KICK", "TEASE", "TEASE", "KICK"]
+                    o_list = ["KICK", "TEASE", "SPRAY", "KICK"]
                     f = fight(1, m_list1, o_list, name, o_name, dict1, dict2)
                     if not f:
                         print("""\nWait a minute... it looks like the THIEF isn't
@@ -618,7 +616,7 @@ goes for thieves to fight...""")
                     f = True
                 elif 4 < smoke < 8:
                     print("""\nYou end up being very angry about it,
-but don't fight against it.""")
+but you don't fight against it too much.""")
                     time.sleep(2)
                 elif -1 < smoke < 5:
                     print("\nHowever, you don't really care.")
@@ -762,8 +760,6 @@ is okay.""")
         play_again = input("""
 DO YOU WANT TO PLAY AGAIN? Y/N: """).lower().strip()
         if play_again == 'yes' or play_again == 'y':
-            print("\nALRIGHT {}, LET'S DO THIS.".format(name))
-            time.sleep(2)
             f = False
         elif play_again == 'no' or play_again == 'n':
             print("\nTHANK YOU FOR PLAYING DRUG USAGE RPG!")
