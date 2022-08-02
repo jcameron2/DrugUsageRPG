@@ -1,6 +1,8 @@
 import time
 import random
 
+# ---THIS IS NOT A PART OF THE MAIN CODE. THIS IS JUST EVIDENCE
+# TO SHOW THAT THE SPECIFIC FIGHT CODE CAN WORK---
 
 # Four action function:
 
@@ -141,6 +143,9 @@ their accuracy was lowered!""".format(name2))
         return accuracy
 
 
+# This is the amount of main code needed to activate one fight:
+
+
 progression = 0
 name = "USER"
 o_name = "OPPONENT"
@@ -150,5 +155,5 @@ o_name = "OPPONENT"
 dict1 = {1: 100, 2: 100, 3: 100, 4: 80}
 dict2 = {1: 130, 2: 60, 3: 80, 4: 100}
 m_list = ["PUNCH", "TEASE", "SPRAY", "KICK"]
-o_list = ["TACKLE", "TEASE", "SPRAY"]
+o_list = ["TACKLE", "TEASE", "SPRAY", "TACKLE"]
 failure = fight(1, m_list, o_list, name, o_name, dict1, dict2)
